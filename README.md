@@ -1,3 +1,3 @@
-= ghostme
+# ghostme
 
 Work in progress.
