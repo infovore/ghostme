@@ -3,6 +3,13 @@ Ghostme::Application.routes.draw do
     get 'home'
   end
 
+  resource :session do
+    collection do
+      get 'callback'
+      get 'logout'
+    end
+  end
+
   root 'pages#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

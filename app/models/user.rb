@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   end
 
   def all_foursq_checkins(options={})
+    # TODO: you can replace this with Quimby.
     count = 100
     offset = 0
     items = []

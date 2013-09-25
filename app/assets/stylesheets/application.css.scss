@@ -11,3 +11,17 @@
  *= require_self
  *= require_tree .
  */
+
+.user-panel {
+  color: white;
+  float: right;
+  line-height: 18px;
+  padding: 10px 0 11px;
+  color: #888;
+
+  img {
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: bottom;
+  }
+}
