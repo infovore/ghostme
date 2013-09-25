@@ -6,18 +6,16 @@
       %tr
         %th Checkin at
         %th Venue name
-        %th Venue id
         %th Shout
-        %th Checkin id
+        %th Checkin 
 
     %tbody
       - for checkin in @checkins
         %tr
           %td= checkin.time
-          %td= checkin.venue_name
-          %td= checkin.venue_id
+          %td= link_to checkin.venue_name, "http://foursquare.com/v/#{checkin.venue_id}"
           %td= checkin.shout
-          %td= checkin.checkin_id
+          %td= link_to checkin.checkin_id, "http://foursquare.com/user/#{current_user.foursquare_id}/checkin/#{checkin.checkin_id}"
 
   = paginate @checkins
 
