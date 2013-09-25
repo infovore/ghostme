@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Ghostme</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+%html
+  %head
+    %title Ghostme
+    = csrf_meta_tags
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  %body
+    = yield
 
-<%= yield %>
-
-</body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    %script{:src => "//code.jquery.com/jquery.js"}
+  </body>
 </html>
