@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130925093331) do
+ActiveRecord::Schema.define(version: 20130925132831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "checkins", force: true do |t|
+    t.string   "user_id"
+    t.string   "checkin_id"
+    t.string   "shout"
+    t.integer  "timestamp",  limit: 8
+    t.string   "venue_id"
+    t.string   "timezone"
+    t.string   "venue_name"
+    t.boolean  "reposted",             default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "access_token"
