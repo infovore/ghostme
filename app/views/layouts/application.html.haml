@@ -12,9 +12,15 @@
     <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
   %body
-    = yield
+    .navbar.navbar-inverse
+      .container
+        .navbar-header
+          %a.navbar-brand{:href => "/"} Ghostme
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li.active= link_to "Home", "/"
+    .container
+      = yield
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     %script{:src => "//code.jquery.com/jquery.js"}
-  </body>
-</html>
