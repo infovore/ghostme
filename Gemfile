@@ -40,3 +40,7 @@ gem 'haml'
 
 # Postgres is our DB.
 gem 'pg'
+
+# stuff for Foursquare
+gem 'addressable'
+gem 'rest-client'
