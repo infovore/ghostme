@@ -8,22 +8,9 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
 
-  def all_foursq_checkins(options={})
-    # TODO: you can replace this with Quimby.
-    count = 100
-    offset = 0
-    items = []
-    while count == 100
-      final_query = {:oauth_token => access_token, :limit => count.to_s, :offset => offset.to_s}.merge(options)
-      raw_json = RestClient.get 'https://api.foursquare.com/v2/users/self/checkins', {:params => final_query}
-
-      data = JSON.parse(raw_json)
-      actual_data = data["response"]["checkins"]["items"]
-      items += actual_data
-      count = actual_data.count
-      offset = offset + count
-    end
-    items
+  def all_foursq_checkins
+    foursquare = Foursquare::Base.new(access_token)
+    foursquare.users.find('self').all_checkins
   end
 
   def all_foursq_checkins_since(timestamp)
