@@ -38,3 +38,4 @@ gem 'pg'
 # stuff for Foursquare
 gem 'addressable'
 gem 'rest-client'
+gem 'quimby'
