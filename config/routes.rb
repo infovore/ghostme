@@ -3,6 +3,8 @@ Ghostme::Application.routes.draw do
     get 'home'
   end
 
+  resources :checkins
+
   resource :session do
     collection do
       get 'callback'

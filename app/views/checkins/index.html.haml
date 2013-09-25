@@ -1,0 +1,25 @@
+%h1 Checkins
+
+- if @checkins.any?
+  %table
+    %thead
+      %tr
+        %th Checkin at
+        %th Venue name
+        %th Venue id
+        %th Shout
+        %th Checkin id
+
+    %tbody
+      - for checkin in @checkins
+        %tr
+          %td= checkin.timestamp
+          %td= checkin.venue_name
+          %td= checkin.venue_name
+          %td= checkin.venue_id
+          %td= checkin.checkin_id
+
+  = paginate @checkins
+
+- else
+  %p Sorry, couldn't find any matching checkins.
