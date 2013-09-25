@@ -39,3 +39,6 @@ gem 'pg'
 gem 'addressable'
 gem 'rest-client'
 gem 'quimby'
+
+# pagination
+gem 'kaminari'
