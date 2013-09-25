@@ -1,7 +1,7 @@
 %h1 Checkins
 
 - if @checkins.any?
-  %table
+  %table.table.table-striped
     %thead
       %tr
         %th Checkin at
@@ -15,11 +15,11 @@
         %tr
           %td= checkin.time
           %td= checkin.venue_name
-          %td= checkin.venue_name
           %td= checkin.venue_id
+          %td= checkin.shout
           %td= checkin.checkin_id
 
   = paginate @checkins
 
 - else
-  %p Sorry, couldn't find any matching checkins.
+  %p Sorry, couldn't find any relevant checkins.
