@@ -1,0 +1,20 @@
+%h1 Your profile, #{@user.name}
+
+%p= image_tag(@user.picture_url)
+
+.origin
+  %h2 Origin
+  - if @user.origin?
+    %dl
+      %dt Origin Name
+      %dd= @user.origin_name
+
+      %dt Origin co-ordinates
+      %dd= @user.origin_latlng_string
+  - else
+    %p 
+      You haven't set an origin.
+      = link_to "Edit your profile", edit_profile_path
+      to do so.
+
+%p= link_to "Edit profile", edit_profile_path

@@ -1,0 +1,15 @@
+%h1 Edit your profile profile, #{@user.name}
+
+= form_for @user, :url => profile_path do |f|
+  .origin
+    %h2 Origin
+    %p
+      = f.label :origin_name
+      = f.text_field :origin_name
+
+    %p
+      = f.label :origin_latlng
+      = f.text_field :origin_latlng, :value => @user.origin_latlng_string
+
+    %p
+      = f.submit
