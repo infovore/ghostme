@@ -8,6 +8,10 @@
         %th Venue name
         %th Shout
         %th Checkin 
+        %th Latitude
+        %th Longitude
+        %th Relative lat
+        %th Relative lng
 
     %tbody
       - for checkin in @checkins
@@ -16,6 +20,10 @@
           %td= link_to checkin.venue_name, "http://foursquare.com/v/#{checkin.venue_id}"
           %td= checkin.shout
           %td= link_to checkin.checkin_id, "http://foursquare.com/user/#{current_user.foursquare_id}/checkin/#{checkin.checkin_id}"
+          %td= checkin.lat
+          %td= checkin.lng
+          %td= checkin.relative_lat
+          %td= checkin.relative_lng
 
   = paginate @checkins
 

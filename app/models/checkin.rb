@@ -1,7 +1,7 @@
 class Checkin < ActiveRecord::Base
   belongs_to :user
 
-  scope :reposted, :conditions => {:reposted => true}
+  scope :reposted, lambda { where(:reposted => true) }
 
   def time
     Time.at(timestamp)
@@ -15,6 +15,22 @@ class Checkin < ActiveRecord::Base
     "http://foursquare.com/venue/#{venue_id}"
   end
 
+  def relative_lat
+    if user.origin_latitude
+      lat - user.origin_latitude
+    else
+      nil
+    end
+  end
+
+  def relative_lng
+    if user.origin_longitude
+      lng - user.origin_longitude
+    else
+      nil
+    end
+  end
+
   private
 
   def self.create_for_user_from_json(user,json)
@@ -24,15 +40,20 @@ class Checkin < ActiveRecord::Base
         # venues from the JSON.
         venue_id = json['venue']['id']
         venue_name = json['venue']['name']
+        lat = json['venue']['location']['lat']
+        lng = json['venue']['location']['lng']
       else
         # TODO: what sort of checkins don't have location?
         venue_id, venue_name = nil,nil
+        lat, lng = nil,nil
       end
 
       user.checkins.create(:checkin_id => json['id'],
                            :timezone => json['timeZone'],
                            :timestamp => json['createdAt'],
                            :shout => json['shout'],
+                           :lat => lat,
+                           :lng => lng,
                            :venue_id => venue_id,
                            :venue_name => venue_name)
     end
