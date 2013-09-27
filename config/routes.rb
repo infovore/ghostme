@@ -13,6 +13,7 @@ Ghostme::Application.routes.draw do
   end
 
   resource :profile
+  resource :checkin_ingest
 
   root 'pages#home'
   # The priority is based upon order of creation: first created -> highest priority.

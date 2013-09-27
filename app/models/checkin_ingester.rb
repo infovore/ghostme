@@ -3,7 +3,7 @@ class CheckinIngester
   def self.ingest_all_checkins_for_user(user)
     checkin_data = user.all_foursq_checkins
     checkin_data.each do |raw_checkin|
-      Checkin.create_for_user_from_json(user, raw_checkin)
+      Checkin.create_for_user_from_json(user, raw_checkin.json)
     end
   end
 
@@ -15,7 +15,7 @@ class CheckinIngester
 
       checkin_data = user.all_foursq_checkins_since(latest_timestamp)
       checkin_data.each do |raw_checkin|
-        Checkin.create_for_user_from_json(user, raw_checkin)
+        Checkin.create_for_user_from_json(user, raw_checkin.json)
       end
     else
       self.ingest_all_checkins_for_user(user)

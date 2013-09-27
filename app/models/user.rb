@@ -40,7 +40,8 @@ class User < ActiveRecord::Base
   end
 
   def all_foursq_checkins_since(timestamp)
-    all_foursq_checkins("afterTimestamp" => timestamp.to_s)
+    foursquare = Foursquare::Base.new(access_token)
+    foursquare.users.find('self').checkins(:afterTimestamp => timestamp.to_s)
   end
 
   def next_checkin_after(t)

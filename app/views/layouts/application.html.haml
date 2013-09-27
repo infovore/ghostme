@@ -36,6 +36,10 @@
             - else
               = link_to "Log in", new_session_path
     .container
+      #flash
+        - flash.each do |key, value|
+          %div{:class => "alert alert-#{key}"}= value
+
       = yield
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

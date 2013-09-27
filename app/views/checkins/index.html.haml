@@ -1,5 +1,7 @@
 %h1 Checkins
 
+= button_to "Ingest latest checkins", checkin_ingest_path
+
 - if @checkins.any?
   %table.table.table-striped
     %thead
