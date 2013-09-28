@@ -48,6 +48,8 @@ class Checkin < ActiveRecord::Base
         # venues from the JSON.
         venue_id = json['venue']['id']
         venue_name = json['venue']['name']
+        category_id_list = json['venue']['categories'].map {|cat| cat['id']}.join(",")
+        category_name_list = json['venue']['categories'].map {|cat| cat['name']}.join(",")
         lat = json['venue']['location']['lat']
         lng = json['venue']['location']['lng']
       else
@@ -63,7 +65,9 @@ class Checkin < ActiveRecord::Base
                            :lat => lat,
                            :lng => lng,
                            :venue_id => venue_id,
-                           :venue_name => venue_name)
+                           :venue_name => venue_name,
+                           :category_id_list => category_id_list,
+                           :category_name_list => category_name_list)
     end
   end
 end

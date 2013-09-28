@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130928091738) do
+ActiveRecord::Schema.define(version: 20130928101311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,15 +20,17 @@ ActiveRecord::Schema.define(version: 20130928091738) do
     t.string   "user_id"
     t.string   "checkin_id"
     t.string   "shout"
-    t.integer  "timestamp",  limit: 8
+    t.integer  "timestamp",          limit: 8
     t.string   "venue_id"
     t.string   "timezone"
     t.string   "venue_name"
-    t.boolean  "reposted",             default: false
+    t.boolean  "reposted",                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
+    t.string   "category_id_list"
+    t.string   "category_name_list"
   end
 
   create_table "users", force: true do |t|
