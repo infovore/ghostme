@@ -19,6 +19,10 @@ class VenueMirrorer
     end
 
     # spit out the first one
-    venues.first
+    if venues.any?
+      venues.first.json
+    else
+      nil
+    end
   end
 end

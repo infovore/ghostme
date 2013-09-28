@@ -3,7 +3,11 @@ Ghostme::Application.routes.draw do
     get 'home'
   end
 
-  resources :checkins
+  resources :checkins do
+    member do
+      get 'mirror'
+    end
+  end
 
   resource :session do
     collection do
