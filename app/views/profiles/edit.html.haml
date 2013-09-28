@@ -1,48 +1,92 @@
 %h1 Edit your profile, #{@user.name}
 
-= form_for @user, :url => profile_path do |f|
-  .origin
-    %h2 Origin
+.row
+  = form_for @user, :url => profile_path do |f|
+    .origin.col-md-6
+      %h2 Origin
 
-    #origin_map
-    :javascript
-
-      $("#origin_map").css("width", "600px");
-      $("#origin_map").css("height", "400px");
-
-      window.origin_map = L.map('origin_map', {minZoom: 3}).setView([51,0], 10);
-      window.origin_map.attributionControl.setPrefix(false);
-      L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-        maxZoom: 14
-      }).addTo(window.origin_map);
-
-    - if @user.origin_latlng
+      #origin_map
       :javascript
-        var m = L.marker([#{@user.origin_latlng_string}], {draggable: true}).addTo(window.origin_map);
-        m.on("dragend", function(e) {
-          var lat = this.getLatLng().lat;
-          var lng = this.getLatLng().lng;
-          $("#user_origin_latlng").val(lat + "," + lng);
-        });
-        window.origin_map.setView([#{@user.origin_latlng_string}], 10);
-    - else
+
+        $("#origin_map").css("width", "500px");
+        $("#origin_map").css("height", "300px");
+
+        window.origin_map = L.map('origin_map', {minZoom: 3}).setView([51,0], 10);
+        window.origin_map.attributionControl.setPrefix(false);
+        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+          maxZoom: 14
+        }).addTo(window.origin_map);
+
+      - if @user.origin_latlng
+        :javascript
+          var m = L.marker([#{@user.origin_latlng_string}], {draggable: true}).addTo(window.origin_map);
+          m.on("dragend", function(e) {
+            var lat = this.getLatLng().lat;
+            var lng = this.getLatLng().lng;
+            $("#user_origin_latlng").val(lat + "," + lng);
+          });
+          window.origin_map.setView([#{@user.origin_latlng_string}], 10);
+      - else
+        :javascript
+          var m = L.marker([51,0], {draggable: true}).addTo(window.origin_map);
+          m.on("dragend", function(e) {
+            var lat = this.getLatLng().lat;
+            var lng = this.getLatLng().lng;
+            $("#user_origin_latlng").val(lat + "," + lng);
+          });
+
+
+      %p
+        = f.label :origin_latlng
+        = f.text_field :origin_latlng, :value => @user.origin_latlng_string
+
+      %p
+        = f.label :origin_name
+        = f.text_field :origin_name
+
+    .offset.col-md-6
+      %h2 Offset
+
+      #offset_map
       :javascript
-        var m = L.marker([51,0]).addTo(window.origin_map);
-        m.on("dragend", function(e) {
-          var lat = this.getLatLng().lat;
-          var lng = this.getLatLng().lng;
-          $("#user_origin_latlng").val(lat + "," + lng);
-        });
+
+        $("#offset_map").css("width", "500px");
+        $("#offset_map").css("height", "300px");
+
+        window.offset_map = L.map('offset_map', {minZoom: 3}).setView([51,0], 10);
+        window.offset_map.attributionControl.setPrefix(false);
+        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+          maxZoom: 14
+        }).addTo(window.offset_map);
+
+      - if @user.offset_latlng
+        :javascript
+          var m = L.marker([#{@user.offset_latlng_string}], {draggable: true}).addTo(window.offset_map);
+          m.on("dragend", function(e) {
+            var lat = this.getLatLng().lat;
+            var lng = this.getLatLng().lng;
+            $("#user_offset_latlng").val(lat + "," + lng);
+          });
+          window.offset_map.setView([#{@user.offset_latlng_string}], 10);
+      - else
+        :javascript
+          var m = L.marker([51,0], {draggable: true}).addTo(window.offset_map);
+          m.on("dragend", function(e) {
+            var lat = this.getLatLng().lat;
+            var lng = this.getLatLng().lng;
+            $("#user_offset_latlng").val(lat + "," + lng);
+          });
 
 
-    %p
-      = f.label :origin_latlng
-      = f.text_field :origin_latlng, :value => @user.origin_latlng_string
+      %p
+        = f.label :offset_latlng
+        = f.text_field :offset_latlng, :value => @user.offset_latlng_string
 
-    %p
-      = f.label :origin_name
-      = f.text_field :origin_name
+      %p
+        = f.label :offset_name
+        = f.text_field :offset_name
 
     %p
       = f.submit

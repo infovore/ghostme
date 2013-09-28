@@ -10,7 +10,7 @@
 
       :javascript
 
-        $("#origin_map").css("width", "600px");
+        $("#origin_map").css("width", "500px");
         $("#origin_map").css("height", "300px");
 
         window.origin_map = L.map('origin_map', {minZoom: 3}).setView([#{@user.origin_latlng_string}], 10);
@@ -39,8 +39,8 @@
 
       :javascript
 
-        $("#offset_map").css("width", "450");
-        $("#offset_map").css("height", "300");
+        $("#offset_map").css("width", "500px");
+        $("#offset_map").css("height", "300px");
 
         window.offset_map = L.map('offset_map', {minZoom: 3}).setView([#{@user.offset_latlng_string}], 10);
         window.offset_map.attributionControl.setPrefix(false);
