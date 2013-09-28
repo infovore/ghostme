@@ -43,3 +43,8 @@ gem 'quimby'
 
 # pagination
 gem 'kaminari'
+
+# heroku nonsense
+group :production do
+  gem 'rails_12factor'
+end
