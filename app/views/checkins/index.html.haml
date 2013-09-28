@@ -11,10 +11,6 @@
         %th Shout
         %th Checkin 
         %th Categories
-        %th Latitude
-        %th Longitude
-        %th Relative lat
-        %th Relative lng
         %th
 
     %tbody
@@ -25,10 +21,6 @@
           %td= checkin.shout
           %td= link_to checkin.checkin_id, "http://foursquare.com/user/#{current_user.foursquare_id}/checkin/#{checkin.checkin_id}"
           %td= checkin.category_name_list
-          %td= checkin.lat
-          %td= checkin.lng
-          %td= checkin.relative_lat
-          %td= checkin.relative_lng
           %td= link_to "View details", checkin
 
   = paginate @checkins
