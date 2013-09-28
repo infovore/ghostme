@@ -13,7 +13,11 @@ class User < ActiveRecord::Base
   end
 
   def origin_latlng
-    [origin_lat, origin_lng]
+    if origin_lat && origin_lng
+      [origin_lat, origin_lng]
+    else
+      nil
+    end
   end
 
   def origin_latlng_string
@@ -42,7 +46,11 @@ class User < ActiveRecord::Base
   end
 
   def offset_latlng
-    [offset_lat, offset_lng]
+    if offset_lat && offset_lng
+      [offset_lat, offset_lng]
+    else
+      nil
+    end
   end
 
   def offset_latlng_string
