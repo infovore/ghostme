@@ -15,7 +15,7 @@ class VenueMirrorer
     venues = venues.sort_by do |venue|
       lat_prox = (venue.location.lat - new_lat).abs
       lng_prox = (venue.location.lng - new_lng).abs
-      [lat_prox, lng_prox]
+      lat_prox.abs + lng_prox.abs
     end
 
     # spit out the first one
