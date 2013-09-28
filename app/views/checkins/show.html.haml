@@ -19,7 +19,7 @@
 
     %dl
       %dt Venue
-      %dd= @checkin.venue_name
+      %dd= link_to @checkin.venue_name, "http://foursquare.com/v/#{@checkin.venue_id}", :class => "popup"
 
       %dt Categories
       %dd= @checkin.category_name_list
@@ -54,6 +54,7 @@
         var mirrorUrl = window.location.href + "/mirror.json";
 
         $.get(mirrorUrl, function(data) {
+        var offsetId = data.id
           var offsetName = data.name;
           var offsetLat = data.location.lat;
           var offsetLng = data.location.lng;
@@ -63,7 +64,7 @@
             offsetCategories.push(data.categories[i].name);
           };
 
-          $("#offset_name").text(offsetName);
+          $("#offset_name").html("<a class='popup' href='http://foursquare.com/v/" + offsetId + "'>" + offsetName + "</a>");
           $("#offset_categories").text(offsetCategories);
           $("#offset_lat").text(offsetLat);
           $("#offset_lng").text(offsetLng);

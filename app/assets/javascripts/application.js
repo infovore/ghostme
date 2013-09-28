@@ -13,3 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function() {
+  $("a.popup").on('click', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    window.open(this.href, '_blank');
+  })
+});
