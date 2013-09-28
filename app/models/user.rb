@@ -34,6 +34,35 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO: refactor locations into being things that are attached to users,
+  # these look too similar.
+
+  def offset?
+    offset_lat && offset_lng && offset_name
+  end
+
+  def offset_latlng
+    [offset_lat, offset_lng]
+  end
+
+  def offset_latlng_string
+    if offset_lat && offset_lng
+      "#{offset_lat}, #{offset_lng}"
+    else
+      ""
+    end
+  end
+
+  def update_offset_latlng_from_string(string)
+    if string.split(",").size == 2
+      lat,lng = string.split(",").map(&:strip)
+      self.offset_lat = lat
+      self.offset_lng = lng
+    else
+      raise "Too many components for a latlng."
+    end
+  end
+
   def all_foursq_checkins
     foursquare = Foursquare::Base.new(access_token)
     foursquare.users.find('self').all_checkins

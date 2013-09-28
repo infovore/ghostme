@@ -2,34 +2,65 @@
 
 %p= image_tag(@user.picture_url)
 
-.origin
-  %h2 Origin
-  - if @user.origin?
-    #origin_map
+.row
+  .origin.col-md-6
+    %h2 Origin
+    - if @user.origin?
+      #origin_map
 
-    :javascript
+      :javascript
 
-      $("#origin_map").css("width", "600px");
-      $("#origin_map").css("height", "400px");
+        $("#origin_map").css("width", "600px");
+        $("#origin_map").css("height", "300px");
 
-      window.origin_map = L.map('origin_map', {minZoom: 3}).setView([#{@user.origin_latlng_string}], 10);
-      window.origin_map.attributionControl.setPrefix(false);
-      L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-        maxZoom: 14
-      }).addTo(window.origin_map);
-      L.marker([#{@user.origin_latlng_string}]).addTo(origin_map)
+        window.origin_map = L.map('origin_map', {minZoom: 3}).setView([#{@user.origin_latlng_string}], 10);
+        window.origin_map.attributionControl.setPrefix(false);
+        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+          maxZoom: 14
+        }).addTo(window.origin_map);
+        L.marker([#{@user.origin_latlng_string}]).addTo(origin_map)
 
-    %dl
-      %dt Origin Name
-      %dd= @user.origin_name
+      %dl
+        %dt Origin Name
+        %dd= @user.origin_name
 
-      %dt Origin co-ordinates
-      %dd= @user.origin_latlng_string
-  - else
-    %p 
-      You haven't set an origin.
-      = link_to "Edit your profile", edit_profile_path
-      to do so.
+        %dt Origin co-ordinates
+        %dd= @user.origin_latlng_string
+    - else
+      %p 
+        You haven't set an origin.
+        = link_to "Edit your profile", edit_profile_path
+        to do so.
+  .offset.col-md-6
+    %h2 Offset
+    - if @user.offset?
+      #offset_map
+
+      :javascript
+
+        $("#offset_map").css("width", "450");
+        $("#offset_map").css("height", "300");
+
+        window.offset_map = L.map('offset_map', {minZoom: 3}).setView([#{@user.offset_latlng_string}], 10);
+        window.offset_map.attributionControl.setPrefix(false);
+        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+          maxZoom: 14
+        }).addTo(window.offset_map);
+        L.marker([#{@user.offset_latlng_string}]).addTo(offset_map)
+
+      %dl
+        %dt Offset Name
+        %dd= @user.offset_name
+
+        %dt Origin co-ordinates
+        %dd= @user.offset_latlng_string
+    - else
+      %p 
+        You haven't set an offset location
+        = link_to "Edit your profile", edit_profile_path
+        to do so.
+
 
 %p= link_to "Edit profile", edit_profile_path
