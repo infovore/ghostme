@@ -16,16 +16,16 @@ class Checkin < ActiveRecord::Base
   end
 
   def relative_lat
-    if user.origin_latitude
-      lat - user.origin_latitude
+    if user.origin_lat
+      lat - user.origin_lat
     else
       nil
     end
   end
 
   def relative_lng
-    if user.origin_longitude
-      lng - user.origin_longitude
+    if user.origin_lng
+      lng - user.origin_lng
     else
       nil
     end

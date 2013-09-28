@@ -9,16 +9,16 @@ class User < ActiveRecord::Base
   end
 
   def origin?
-    origin_latitude && origin_longitude && origin_name
+    origin_lat && origin_lng && origin_name
   end
 
   def origin_latlng
-    [origin_latitude, origin_longitude]
+    [origin_lat, origin_lng]
   end
 
   def origin_latlng_string
-    if origin_latitude && origin_longitude
-      "#{origin_latitude}, #{origin_longitude}"
+    if origin_lat && origin_lng
+      "#{origin_lat}, #{origin_lng}"
     else
       ""
     end
@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   def update_origin_latlng_from_string(string)
     if string.split(",").size == 2
       lat,lng = string.split(",").map(&:strip)
-      self.origin_latitude = lat
-      self.origin_longitude = lng
+      self.origin_lat = lat
+      self.origin_lng = lng
     else
       raise "Too many components for a latlng."
     end
