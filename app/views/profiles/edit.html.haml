@@ -20,8 +20,8 @@
 
       - if @user.origin_latlng
         :javascript
-          var m = L.marker([#{@user.origin_latlng_string}], {draggable: true}).addTo(window.origin_map);
-          m.on("dragend", function(e) {
+          window.origin_marker = L.marker([#{@user.origin_latlng_string}], {draggable: true}).addTo(window.origin_map);
+          window.origin_marker.on("dragend", function(e) {
             var lat = this.getLatLng().lat;
             var lng = this.getLatLng().lng;
             $("#user_origin_latlng").val(lat + "," + lng);
@@ -29,8 +29,8 @@
           window.origin_map.setView([#{@user.origin_latlng_string}], 10);
       - else
         :javascript
-          var m = L.marker([51,0], {draggable: true}).addTo(window.origin_map);
-          m.on("dragend", function(e) {
+          window.origin_marker = L.marker([51,0], {draggable: true}).addTo(window.origin_map);
+          window.origin_marker.on("dragend", function(e) {
             var lat = this.getLatLng().lat;
             var lng = this.getLatLng().lng;
             $("#user_origin_latlng").val(lat + "," + lng);
@@ -44,6 +44,27 @@
       %p
         = f.label :origin_name
         = f.text_field :origin_name
+        = link_to "Look this up on the map", "#", :class => :geocode_origin
+        
+        :javascript
+          $("a.geocode_origin").click(function() {
+            var address = $("#user_origin_name").val();
+            $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + address + '&json_callback=?', 'jsonp', function(data) {
+              console.log(data);
+              if(data.length > 0) {
+                var location = data[0]
+                // move map to data.lat, data.lon
+                window.origin_map.panTo([location.lat, location.lon]);
+                // move marker to data.lat, data.lon
+                window.origin_marker.setLatLng([location.lat,location.lon]);
+                // update field
+                $("#user_origin_latlng").val(location.lat+","+location.lon);
+              } else {
+                alert("Sorry, couldn't find that.");
+              }
+            });
+            return false;
+          });
 
     .offset.col-md-6
       %h2 Offset
@@ -63,8 +84,8 @@
 
       - if @user.offset_latlng
         :javascript
-          var m = L.marker([#{@user.offset_latlng_string}], {draggable: true}).addTo(window.offset_map);
-          m.on("dragend", function(e) {
+          window.offset_marker = L.marker([#{@user.offset_latlng_string}], {draggable: true}).addTo(window.offset_map);
+          window.offset_marker.on("dragend", function(e) {
             var lat = this.getLatLng().lat;
             var lng = this.getLatLng().lng;
             $("#user_offset_latlng").val(lat + "," + lng);
@@ -87,6 +108,27 @@
       %p
         = f.label :offset_name
         = f.text_field :offset_name
+        = link_to "Look this up on the map", "#", :class => :geocode_offset
+
+      :javascript
+        $("a.geocode_offset").click(function() {
+          var address = $("#user_offset_name").val();
+          $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + address + '&json_callback=?', 'jsonp', function(data) {
+            console.log(data);
+            if(data.length > 0) {
+              var location = data[0]
+              // move map to data.lat, data.lon
+              window.offset_map.panTo([location.lat, location.lon]);
+              // move marker to data.lat, data.lon
+              window.offset_marker.setLatLng([location.lat,location.lon]);
+              // update field
+              $("#user_offset_latlng").val(location.lat+","+location.lon);
+            } else {
+              alert("Sorry, couldn't find that.");
+            }
+          });
+          return false;
+        });
 
     %p
       = f.submit
