@@ -14,6 +14,7 @@
         %th Longitude
         %th Relative lat
         %th Relative lng
+        %th
 
     %tbody
       - for checkin in @checkins
@@ -26,6 +27,7 @@
           %td= checkin.lng
           %td= checkin.relative_lat
           %td= checkin.relative_lng
+          %td= link_to "View details", checkin
 
   = paginate @checkins
 

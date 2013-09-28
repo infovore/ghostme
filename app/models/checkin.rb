@@ -15,6 +15,14 @@ class Checkin < ActiveRecord::Base
     "http://foursquare.com/venue/#{venue_id}"
   end
 
+  def latlng
+    [lat,lng]
+  end
+
+  def latlng_string
+    "#{lat}, #{lng}"
+  end
+
   def relative_lat
     if user.origin_lat
       lat - user.origin_lat

@@ -6,6 +6,6 @@ class CheckinsController < ApplicationController
   end
 
   def show
-    @checkin = current_user.checkins.where(:id => params[:id])
+    @checkin = current_user.checkins.find_by(:id => params[:id])
   end
 end

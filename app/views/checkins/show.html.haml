@@ -1,0 +1,23 @@
+%h1 Checkin: #{@checkin.venue_name} at #{format_datetime(Time.at(@checkin.timestamp))}
+
+.row
+  .col-md-6
+    %h2 Checkin location
+    #checkin_map
+      :javascript
+
+        $("#checkin_map").css("width", "500px");
+        $("#checkin_map").css("height", "300px");
+
+        window.checkin_map = L.map('checkin_map', {minZoom: 3}).setView([#{@checkin.latlng_string}], 13);
+        window.checkin_map.attributionControl.setPrefix(false);
+        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+          maxZoom: 14
+        }).addTo(window.checkin_map);
+        L.marker([#{@checkin.latlng_string}]).addTo(checkin_map)
+  .col-md-6
+    %h2 Relative location
+    #offset_checkin_map
+
+%p= link_to "Back to all checkins", checkins_path
