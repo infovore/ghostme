@@ -3,7 +3,7 @@ class CheckinsController < ApplicationController
   before_filter :scope_to_user, :except => :index
 
   def index
-    @checkins = current_user.checkins.order("created_at desc").page(params[:page])
+    @checkins = current_user.checkins.order("timestamp desc").page(params[:page])
   end
 
   def show
