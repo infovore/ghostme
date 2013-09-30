@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130928101311) do
+ActiveRecord::Schema.define(version: 20130930155620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20130928101311) do
     t.string   "category_name_list"
   end
 
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "access_token"
     t.string   "firstname"
@@ -41,12 +49,8 @@ ActiveRecord::Schema.define(version: 20130928101311) do
     t.string   "foursquare_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "origin_lat"
-    t.float    "origin_lng"
-    t.string   "origin_name"
-    t.float    "offset_lat"
-    t.float    "offset_lng"
-    t.string   "offset_name"
+    t.integer  "origin_location_id"
+    t.integer  "offset_location_id"
   end
 
   add_index "users", ["access_token"], name: "index_users_on_access_token", using: :btree

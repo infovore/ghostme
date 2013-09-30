@@ -3,72 +3,23 @@ class User < ActiveRecord::Base
   require 'open-uri'
 
   has_many :checkins
+  belongs_to :author, :class_name => 'User', :foreign_key => 'author_id', :validate => true
+  belongs_to :origin_location, :class_name => 'Location', :foreign_key => 'origin_location_id'
+  belongs_to :offset_location, :class_name => 'Location', :foreign_key => 'offset_location_id'
+
+  accepts_nested_attributes_for :origin_location
+  accepts_nested_attributes_for :offset_location
 
   def name
     "#{firstname} #{lastname}"
   end
 
   def origin?
-    origin_lat && origin_lng && origin_name
+    !origin_location.nil?
   end
-
-  def origin_latlng
-    if origin_lat && origin_lng
-      [origin_lat, origin_lng]
-    else
-      nil
-    end
-  end
-
-  def origin_latlng_string
-    if origin_lat && origin_lng
-      "#{origin_lat}, #{origin_lng}"
-    else
-      ""
-    end
-  end
-
-  def update_origin_latlng_from_string(string)
-    if string.split(",").size == 2
-      lat,lng = string.split(",").map(&:strip)
-      self.origin_lat = lat
-      self.origin_lng = lng
-    else
-      raise "Too many components for a latlng."
-    end
-  end
-
-  # TODO: refactor locations into being things that are attached to users,
-  # these look too similar.
 
   def offset?
-    offset_lat && offset_lng && offset_name
-  end
-
-  def offset_latlng
-    if offset_lat && offset_lng
-      [offset_lat, offset_lng]
-    else
-      nil
-    end
-  end
-
-  def offset_latlng_string
-    if offset_lat && offset_lng
-      "#{offset_lat}, #{offset_lng}"
-    else
-      ""
-    end
-  end
-
-  def update_offset_latlng_from_string(string)
-    if string.split(",").size == 2
-      lat,lng = string.split(",").map(&:strip)
-      self.offset_lat = lat
-      self.offset_lng = lng
-    else
-      raise "Too many components for a latlng."
-    end
+    !offset_location.nil?
   end
 
   def all_foursq_checkins

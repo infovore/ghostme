@@ -5,8 +5,8 @@ class VenueMirrorer
 
     # get the relative latlng of this checkin
     # add them to the user's offset_latlng to get the search terms
-    new_lat = checkin.user.offset_lat + checkin.relative_lat
-    new_lng = checkin.user.offset_lng + checkin.relative_lng
+    new_lat = checkin.user.offset_location.lat + checkin.relative_lat
+    new_lng = checkin.user.offset_location.lng + checkin.relative_lng
 
     # search for venues near a space in the categories of this checkin
     venues = foursquare.venues.nearby(:ll => "#{new_lat}, #{new_lng}", :categoryId => checkin.category_id_list)
