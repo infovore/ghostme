@@ -11,11 +11,21 @@ class ProfilesController < ApplicationController
 
   def update
     @user = current_user
-    @user.origin_name = params[:user][:origin_name]
-    @user.offset_name = params[:user][:offset_name]
-    @user.update_origin_latlng_from_string(params[:user][:origin_latlng])
-    @user.update_offset_latlng_from_string(params[:user][:offset_latlng])
+
+    if !@user.origin_location
+      @user.origin_location = Location.new
+    end
+    @user.origin_location.update_from_string(params[:origin_location][:latlng_string])
+    @user.origin_location.name = params[:origin_location][:name]
+
+    if !@user.offset_location
+      @user.offset_location = Location.new
+    end
+    @user.offset_location.update_from_string(params[:offset_location][:latlng_string])
+    @user.offset_location.name = params[:offset_location][:name]
+
     @user.save
+
     redirect_to profile_path
   end
 end

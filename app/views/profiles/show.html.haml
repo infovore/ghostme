@@ -13,20 +13,20 @@
         $("#origin_map").css("width", "500px");
         $("#origin_map").css("height", "300px");
 
-        window.origin_map = L.map('origin_map', {minZoom: 3}).setView([#{@user.origin_latlng_string}], 10);
+        window.origin_map = L.map('origin_map', {minZoom: 3}).setView([#{@user.origin_location.latlng_string}], 10);
         window.origin_map.attributionControl.setPrefix(false);
         L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
           maxZoom: 14
         }).addTo(window.origin_map);
-        L.marker([#{@user.origin_latlng_string}]).addTo(origin_map)
+        L.marker([#{@user.origin_location.latlng_string}]).addTo(origin_map)
 
       %dl
         %dt Origin Name
-        %dd= @user.origin_name
+        %dd= @user.origin_location.name
 
         %dt Origin co-ordinates
-        %dd= @user.origin_latlng_string
+        %dd= @user.origin_location.latlng_string
     - else
       %p 
         You haven't set an origin.
@@ -42,20 +42,20 @@
         $("#offset_map").css("width", "500px");
         $("#offset_map").css("height", "300px");
 
-        window.offset_map = L.map('offset_map', {minZoom: 3}).setView([#{@user.offset_latlng_string}], 10);
+        window.offset_map = L.map('offset_map', {minZoom: 3}).setView([#{@user.offset_location.latlng_string}], 10);
         window.offset_map.attributionControl.setPrefix(false);
         L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
           maxZoom: 14
         }).addTo(window.offset_map);
-        L.marker([#{@user.offset_latlng_string}]).addTo(offset_map)
+        L.marker([#{@user.offset_location.latlng_string}]).addTo(offset_map)
 
       %dl
         %dt Offset Name
-        %dd= @user.offset_name
+        %dd= @user.offset_location.name
 
         %dt Origin co-ordinates
-        %dd= @user.offset_latlng_string
+        %dd= @user.offset_location.latlng_string
     - else
       %p 
         You haven't set an offset location

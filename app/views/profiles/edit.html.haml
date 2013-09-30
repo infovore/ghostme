@@ -18,15 +18,15 @@
           maxZoom: 14
         }).addTo(window.origin_map);
 
-      - if @user.origin_latlng
+      - if @user.origin?
         :javascript
-          window.origin_marker = L.marker([#{@user.origin_latlng_string}], {draggable: true}).addTo(window.origin_map);
+          window.origin_marker = L.marker([#{@user.origin_location.latlng_string}], {draggable: true}).addTo(window.origin_map);
           window.origin_marker.on("dragend", function(e) {
             var lat = this.getLatLng().lat;
             var lng = this.getLatLng().lng;
-            $("#user_origin_latlng").val(lat + "," + lng);
+            $("#origin_location_latlng_string").val(lat + "," + lng);
           });
-          window.origin_map.setView([#{@user.origin_latlng_string}], 10);
+          window.origin_map.setView([#{@user.origin_location.latlng_string}], 10);
       - else
         :javascript
           window.origin_marker = L.marker([51,0], {draggable: true}).addTo(window.origin_map);
@@ -36,19 +36,19 @@
             $("#user_origin_latlng").val(lat + "," + lng);
           });
 
+      = fields_for :origin_location do |l|
+        %p
+          = l.label :latlng_string, "Latitude/Longitude"
+          = l.text_field :latlng_string
 
-      %p
-        = f.label :origin_latlng
-        = f.text_field :origin_latlng, :value => @user.origin_latlng_string
-
-      %p
-        = f.label :origin_name
-        = f.text_field :origin_name
-        = link_to "Look this up on the map", "#", :class => :geocode_origin
+        %p
+          = l.label :name
+          = l.text_field :name
+          = link_to "Look this up on the map", "#", :class => :geocode_origin
         
         :javascript
           $("a.geocode_origin").click(function() {
-            var address = $("#user_origin_name").val();
+            var address = $("#origin_location_name").val();
             $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + address + '&json_callback=?', 'jsonp', function(data) {
               console.log(data);
               if(data.length > 0) {
@@ -58,7 +58,7 @@
                 // move marker to data.lat, data.lon
                 window.origin_marker.setLatLng([location.lat,location.lon]);
                 // update field
-                $("#user_origin_latlng").val(location.lat+","+location.lon);
+                $("#origin_location_latlng_string").val(location.lat+","+location.lon);
               } else {
                 alert("Sorry, couldn't find that.");
               }
@@ -82,37 +82,38 @@
           maxZoom: 14
         }).addTo(window.offset_map);
 
-      - if @user.offset_latlng
+      - if @user.offset_location
         :javascript
-          window.offset_marker = L.marker([#{@user.offset_latlng_string}], {draggable: true}).addTo(window.offset_map);
+          window.offset_marker = L.marker([#{@user.offset_location.latlng_string}], {draggable: true}).addTo(window.offset_map);
           window.offset_marker.on("dragend", function(e) {
             var lat = this.getLatLng().lat;
             var lng = this.getLatLng().lng;
-            $("#user_offset_latlng").val(lat + "," + lng);
+            $("#offset_location_latlng_string").val(lat + "," + lng);
           });
-          window.offset_map.setView([#{@user.offset_latlng_string}], 10);
+          window.offset_map.setView([#{@user.offset_location.latlng_string}], 10);
       - else
         :javascript
-          var m = L.marker([51,0], {draggable: true}).addTo(window.offset_map);
-          m.on("dragend", function(e) {
+          window.offset_marker = L.marker([51,0], {draggable: true}).addTo(window.offset_map);
+          window.offset_marker.on("dragend", function(e) {
             var lat = this.getLatLng().lat;
             var lng = this.getLatLng().lng;
-            $("#user_offset_latlng").val(lat + "," + lng);
+            $("#offset_location_latlng_string").val(lat + "," + lng);
           });
 
 
-      %p
-        = f.label :offset_latlng
-        = f.text_field :offset_latlng, :value => @user.offset_latlng_string
+      = fields_for :offset_location do |l|
+        %p
+          = l.label :latlng_string, "Latitude/Longitude"
+          = l.text_field :latlng_string
 
-      %p
-        = f.label :offset_name
-        = f.text_field :offset_name
-        = link_to "Look this up on the map", "#", :class => :geocode_offset
+        %p
+          = l.label :name
+          = l.text_field :name
+          = link_to "Look this up on the map", "#", :class => :geocode_offset
 
       :javascript
         $("a.geocode_offset").click(function() {
-          var address = $("#user_offset_name").val();
+          var address = $("#offset_location_name").val();
           $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + address + '&json_callback=?', 'jsonp', function(data) {
             console.log(data);
             if(data.length > 0) {
@@ -122,7 +123,7 @@
               // move marker to data.lat, data.lon
               window.offset_marker.setLatLng([location.lat,location.lon]);
               // update field
-              $("#user_offset_latlng").val(location.lat+","+location.lon);
+              $("#offset_location_latlng_string").val(location.lat+","+location.lon);
             } else {
               alert("Sorry, couldn't find that.");
             }
