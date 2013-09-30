@@ -48,3 +48,9 @@ gem 'kaminari'
 group :production do
   gem 'rails_12factor'
 end
+
+# stuff for queueing: Sidekiq, basically
+gem 'sidekiq'
+gem 'slim' # for the web UI
+# if you require 'sinatra' you get the DSL extended to Object
+gem 'sinatra', :require => nil 
