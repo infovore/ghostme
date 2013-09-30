@@ -1,13 +1,15 @@
 class CheckinIngester
 
-  def self.ingest_all_checkins_for_user(user)
+  def self.ingest_all_checkins_for_user_id(user_id)
+    user = User.find(user_id)
     checkin_data = user.all_foursq_checkins
     checkin_data.each do |raw_checkin|
       Checkin.create_for_user_from_json(user, raw_checkin.json)
     end
   end
 
-  def self.ingest_latest_checkins_for_user(user)
+  def self.ingest_latest_checkins_for_user_id(user_id)
+    user = User.find(user_id)
     if user.checkins.any?
       latest_timestamp = user.checkins.last.timestamp
       # we add 1 to ignore the record we derived this from.
@@ -18,7 +20,7 @@ class CheckinIngester
         Checkin.create_for_user_from_json(user, raw_checkin.json)
       end
     else
-      self.ingest_all_checkins_for_user(user)
+      self.ingest_all_checkins_for_user_id(user_id)
     end
   end
 
