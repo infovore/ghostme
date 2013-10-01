@@ -1,7 +1,7 @@
 class CreateCheckins < ActiveRecord::Migration
   def change
     create_table :checkins do |t|
-      t.string   "user_id"
+      t.integer   "user_id"
       t.string   "checkin_id"
       t.string   "shout"
       t.integer  "timestamp",  :limit => 8
