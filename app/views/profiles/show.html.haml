@@ -56,6 +56,9 @@
 
         %dt Origin co-ordinates
         %dd= @user.offset_location.latlng_string
+
+        %dt Time offset
+        %dd= @user.offset_location.time_offset
     - else
       %p 
         You haven't set an offset location

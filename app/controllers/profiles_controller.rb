@@ -23,8 +23,11 @@ class ProfilesController < ApplicationController
     end
     @user.offset_location.update_from_string(params[:offset_location][:latlng_string])
     @user.offset_location.name = params[:offset_location][:name]
+    @user.offset_location.time_offset = params[:offset_location][:time_offset]
 
     @user.save
+
+    flash[:success] = "Details updated!"
 
     redirect_to profile_path
   end
