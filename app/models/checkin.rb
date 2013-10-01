@@ -2,6 +2,8 @@ class Checkin < ActiveRecord::Base
   belongs_to :user
 
   scope :reposted, lambda { where(:reposted => true) }
+  scope :mirrored, lambda { where("mirror_checkin_id IS NOT NULL") }
+  scope :unmirrored, lambda { where("mirror_checkin_id IS NULL") }
 
   def mirrored?
     !mirror_checkin_id.blank?
@@ -11,8 +13,12 @@ class Checkin < ActiveRecord::Base
     Time.at(timestamp)
   end
 
-  def echo_time
-    Time.at(timestamp) + 1.year
+  def time_in_offset_location
+    if user.offset_location
+      time - (user.offset_location.time_offset.to_i).hours
+    else
+      nil
+    end
   end
 
   def venue_url
