@@ -78,7 +78,11 @@
           L.marker([offsetLat,offsetLng]).addTo(offset_checkin_map)
         });
 
-    = button_to "Post this checkin to secondary account", create_at_mirror_checkin_path, :class => :btn
+    - if @checkin.mirrored?
+      = link_to "View mirrored checkin on Foursqaure", "http://foursquare.com/user/#{current_user.secondary_foursquare_id}/checkin/#{@checkin.mirror_checkin_id}"
+    - else
+      = button_to "Post this checkin to secondary account", create_at_mirror_checkin_path(@checkin), :class => :btn
+
 
 
 

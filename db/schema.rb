@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131001150430) do
+ActiveRecord::Schema.define(version: 20131001151950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20131001150430) do
     t.float    "lng"
     t.string   "category_id_list"
     t.string   "category_name_list"
+    t.string   "mirror_checkin_id"
   end
 
   create_table "locations", force: true do |t|

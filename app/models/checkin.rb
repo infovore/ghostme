@@ -3,6 +3,10 @@ class Checkin < ActiveRecord::Base
 
   scope :reposted, lambda { where(:reposted => true) }
 
+  def mirrored?
+    !mirror_checkin_id.blank?
+  end
+
   def time
     Time.at(timestamp)
   end
