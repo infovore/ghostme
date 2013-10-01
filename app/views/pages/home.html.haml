@@ -1,3 +1,21 @@
 %h1 Ghostme
 
 %p Welcome to ghostme.
+
+- if current_user
+  - case current_user.configuration_state
+  - when 'complete'
+    %p Great. Everything's set up for your to use ghostme.
+  - when 'locations_needed'
+    %p You need to set up both an origin location and an offset location. You can do so by #{link_to "editing your profile.", edit_profile_path}
+  - when 'secondary_access_token_needed'
+    %p You need to set up a secondary access token.
+    %ul
+      %li Log out of Foursquare
+      %li Create a new secondary Foursquare account.
+      %li 
+        Then click this image to connect your secondary account to your primary account:
+        = link_to image_tag("connect.png"), @authorize_url
+- else
+  %p
+    Please #{link_to "log in", new_session_path}
