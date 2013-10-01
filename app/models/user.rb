@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :origin_location
   accepts_nested_attributes_for :offset_location
 
+  def checkins_since_signup
+    signup_timestamp = self.created_at.to_i
+    checkins.where("timestamp > ?", signup_timestamp)
+  end
+
   def name
     "#{firstname} #{lastname}"
   end
