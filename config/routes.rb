@@ -10,6 +10,7 @@ Ghostme::Application.routes.draw do
   resources :checkins do
     member do
       get 'mirror'
+      post 'create_at_mirror'
     end
   end
 
