@@ -28,7 +28,7 @@
             %li= link_to "Home", "/"
             %li= link_to "Checkins", "/checkins"
           .navbar-right.user-panel
-            - if session[:access_token]
+            - if current_user
               %img{:src => current_user.picture_url}
               Logged in as
               %i= link_to(current_user.name, profile_path)
