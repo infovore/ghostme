@@ -80,7 +80,7 @@
 
     - if @checkin.mirrored?
       = link_to "View mirrored checkin on Foursqaure", "http://foursquare.com/user/#{current_user.secondary_foursquare_id}/checkin/#{@checkin.mirror_checkin_id}"
-    - else
+    - elsif current_user.configuration_state == 'complete'
       = button_to "Post this checkin to secondary account", create_at_mirror_checkin_path(@checkin), :class => :btn
 
 
