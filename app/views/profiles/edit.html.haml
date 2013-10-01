@@ -39,11 +39,11 @@
       = fields_for :origin_location do |l|
         %p
           = l.label :latlng_string, "Latitude/Longitude"
-          = l.text_field :latlng_string, :value => current_user.origin_location.latlng_string
+          = l.text_field :latlng_string, :value => current_user.try(:origin_location).try(:latlng_string)
 
         %p
           = l.label :name
-          = l.text_field :name, :value => current_user.origin_location.name
+          = l.text_field :name, :value => current_user.try(:origin_location).try(:name)
           = link_to "Look this up on the map", "#", :class => :geocode_origin
         
         :javascript
@@ -104,15 +104,15 @@
       = fields_for :offset_location do |l|
         %p
           = l.label :latlng_string, "Latitude/Longitude"
-          = l.text_field :latlng_string, :value => current_user.offset_location.latlng_string
+          = l.text_field :latlng_string, :value => current_user.try(:offset_location).try(:latlng_string)
 
         %p
           = l.label :name
-          = l.text_field :name, :value => current_user.offset_location.name
+          = l.text_field :name, :value => current_user.try(:offset_location).try(:name)
           = link_to "Look this up on the map", "#", :class => :geocode_offset
         %p
           = l.label :time_offset
-          = l.text_field :time_offset, :value => current_user.offset_location.time_offset
+          = l.text_field :time_offset, :value => current_user.try(:offset_location).try(:time_offset)
           %span.note Offset from GMT in hours. For instance, NY is "-5"
 
       :javascript
