@@ -35,4 +35,14 @@ class User < ActiveRecord::Base
   def next_checkin_after(t)
     checkins.where("timestamp >= #{t.to_i}").first
   end
+
+  def configuration_state
+    if access_token && secondary_access_token && origin_location && offset_location
+      "complete"
+    elsif access_token && secondary_access_token
+      "locations_needed"
+    elsif access_token
+      "secondary_access_token_needed"
+    end
+  end
 end
