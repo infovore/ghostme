@@ -2,6 +2,12 @@
 
 %p= image_tag(@user.picture_url)
 
+%p
+  - if @user.secondary_access_token
+    Secondary access token set up.
+  - else
+    Secondary access token needs setting up.
+
 .row
   .origin.col-md-6
     %h2 Origin

@@ -20,4 +20,20 @@ class CheckinCreator
       #raise "No Checkin matching that ID found"
     end
   end
+
+  def self.schedule_at_mirror_for_checkin_id(id)
+    checkin = Checkin.find(id)
+    if checkin 
+      user = checkin.user
+      offset_time = user.offset_location.time_offset
+      if offset_time < 0
+        time_delta = 0 - offset_time
+        new_time = Time.at(checkin.timestamp) + time_delta.hours
+        self.delay_until(new_time).create_at_mirror_for_checkin_id(id)
+      else
+        self.delay.create_at_mirror_for_checkin_id(id)
+      end
+
+    end
+  end
 end

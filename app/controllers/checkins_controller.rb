@@ -18,8 +18,8 @@ class CheckinsController < ApplicationController
   end
 
   def create_at_mirror
-    CheckinCreator.delay.create_at_mirror_for_checkin_id(params[:id])
-    flash[:success] = "Checkin mirrored to secondary account."
+    CheckinCreator.schedule_at_mirror_for_checkin_id(params[:id])
+    flash[:success] = "Checkin scheduled to be mirrored to secondary account."
     redirect_to checkin_path(params[:id])
   end
 
