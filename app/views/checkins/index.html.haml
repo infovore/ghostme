@@ -11,6 +11,7 @@
         %th Shout
         %th Checkin 
         %th Categories
+        %th Scheduled?
         %th Reposted?
         %th
 
@@ -22,6 +23,11 @@
           %td= checkin.shout
           %td= link_to checkin.checkin_id, "http://foursquare.com/user/#{current_user.foursquare_id}/checkin/#{checkin.checkin_id}"
           %td= checkin.category_name_list
+          %td
+            - if checkin.scheduled?
+              √
+            - else
+              x
           %td
             - if checkin.reposted?
               √

@@ -10,7 +10,7 @@ namespace :ghostme do
 
   desc "Re-post any checkins (run once a minute under cron)"
   task :repost_checkins => :environment do
-    Checkin.order(:timestamp).where(:reposted => false).each do |checkin|
+    Checkin.order(:timestamp).where(:reposted => false, :scheduled => false).each do |checkin|
       CheckinCreator.schedule_at_mirror_for_checkin_id(checkin.id)
       print "."
     end

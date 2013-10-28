@@ -11,6 +11,8 @@ class CheckinCreator
         mirrored_checkin = secondary_foursquare.checkins.create("venueId" => mirror_venue['id'], :shout => checkin.shout)
         if mirrored_checkin
           checkin.mirror_checkin_id = mirrored_checkin.id
+          checkin.reposted = true
+          checkin.scheduled = false
           checkin.save
         end
       else
@@ -31,6 +33,8 @@ class CheckinCreator
         new_time = Time.at(checkin.timestamp) + time_delta.hours
         if new_time > Time.now
           self.delay_until(new_time).create_at_mirror_for_checkin_id(id)
+          checkin.scheduled = true
+          checkin.save
         end
       else
         self.delay.create_at_mirror_for_checkin_id(id)
