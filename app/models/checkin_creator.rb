@@ -29,7 +29,9 @@ class CheckinCreator
       if offset_time < 0
         time_delta = 0 - offset_time
         new_time = Time.at(checkin.timestamp) + time_delta.hours
-        self.delay_until(new_time).create_at_mirror_for_checkin_id(id)
+        if new_time > Time.now
+          self.delay_until(new_time).create_at_mirror_for_checkin_id(id)
+        end
       else
         self.delay.create_at_mirror_for_checkin_id(id)
       end
