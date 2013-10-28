@@ -4,7 +4,8 @@ class CheckinIngester
     user = User.find(user_id)
     checkin_data = user.all_foursq_checkins
     checkin_data.each do |raw_checkin|
-      Checkin.create_for_user_from_json(user, raw_checkin.json)
+      # that true indicates this is our first, initial setup.
+      Checkin.create_for_user_from_json(user, raw_checkin.json, true)
     end
   end
 

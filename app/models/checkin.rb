@@ -51,7 +51,7 @@ class Checkin < ActiveRecord::Base
 
   private
 
-  def self.create_for_user_from_json(user,json)
+  def self.create_for_user_from_json(user,json,initial=false)
     unless user.checkins.where(:checkin_id => json['id']).any?
       if json['venue']
         # TODO: we need to model Venues, maybe? Certainly extract latlong for
@@ -77,7 +77,8 @@ class Checkin < ActiveRecord::Base
                            :venue_id => venue_id,
                            :venue_name => venue_name,
                            :category_id_list => category_id_list,
-                           :category_name_list => category_name_list)
+                           :category_name_list => category_name_list,
+                           :reposted => initial)
     end
   end
 end

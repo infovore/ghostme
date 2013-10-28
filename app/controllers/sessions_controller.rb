@@ -22,8 +22,12 @@ class SessionsController < ApplicationController
                                 :lastname => u.last_name,
                                 :foursquare_id => u.id,
                                 :picture_url=> u.photo)
-      end 
-      flash[:success] = "Your primary Foursquare account has been used for authentication, and linked to Ghostme."
+        CheckinIngester.delay.ingest_latest_checkins_for_user_id(@user.id)
+
+        flash[:success] = "Your primary Foursquare account has been used for authentication, and linked to Ghostme. Your checkins are importing in the background."
+      else
+        flash[:success] = "Welcome back to Ghostme."
+      end
     else
       @user = current_user
 
