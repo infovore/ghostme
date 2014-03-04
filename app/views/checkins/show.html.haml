@@ -11,10 +11,7 @@
 
         window.checkin_map = L.map('checkin_map', {minZoom: 3}).setView([#{@checkin.latlng_string}], 13);
         window.checkin_map.attributionControl.setPrefix(false);
-        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-          maxZoom: 14
-        }).addTo(window.checkin_map);
+        L.mapbox.tileLayer('infovore.he83klmi').addTo(checkin_map);
         L.marker([#{@checkin.latlng_string}]).addTo(checkin_map)
 
     %dl
@@ -71,10 +68,7 @@
 
           window.offset_checkin_map = L.map('offset_checkin_map', {minZoom: 3}).setView([offsetLat, offsetLng], 13);
           window.offset_checkin_map.attributionControl.setPrefix(false);
-          L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            maxZoom: 14
-          }).addTo(window.offset_checkin_map);
+          L.mapbox.tileLayer('infovore.he83klmi').addTo(window.offset_checkin_map);
           L.marker([offsetLat,offsetLng]).addTo(offset_checkin_map)
         });
 

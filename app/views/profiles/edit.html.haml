@@ -13,10 +13,7 @@
 
         window.origin_map = L.map('origin_map', {minZoom: 3}).setView([51,0], 10);
         window.origin_map.attributionControl.setPrefix(false);
-        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-          maxZoom: 14
-        }).addTo(window.origin_map);
+        L.mapbox.tileLayer('infovore.he83klmi').addTo(window.origin_map);
 
       - if @user.origin?
         :javascript
@@ -77,10 +74,7 @@
 
         window.offset_map = L.map('offset_map', {minZoom: 3}).setView([51,0], 10);
         window.offset_map.attributionControl.setPrefix(false);
-        L.tileLayer('http://{s}.tile.cloudmade.com/4ef6b198d96d4b3e9404826e8c656977/998/256/{z}/{x}/{y}.png', {
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-          maxZoom: 14
-        }).addTo(window.offset_map);
+        L.mapbox.tileLayer('infovore.he83klmi').addTo(window.offset_map);
 
       - if @user.offset_location
         :javascript
