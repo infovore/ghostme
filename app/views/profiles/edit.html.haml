@@ -46,19 +46,18 @@
         :javascript
           $("a.geocode_origin").click(function() {
             var address = $("#origin_location_name").val();
-            var geocoder = L.mapbox.geocoder('infovore.he83klmi');
-            geocoder.query(address, function(err, res) {
-              if(err) {
-                alert("Sorry, couldn't find that.");
-              } else {
-                console.log(res);
-                var location = res.results[0][0];
+            $.getJSON('http://open.mapquestapi.com/nominatim/v1/search.php?format=json&limit=5&q=' + address + '&json_callback=?', 'jsonp', function(data) {
+              console.log(data);
+              if(data.length > 0) {
+                var location = data[0]
                 // move map to data.lat, data.lon
                 window.origin_map.panTo([location.lat, location.lon]);
                 // move marker to data.lat, data.lon
                 window.origin_marker.setLatLng([location.lat,location.lon]);
                 // update field
                 $("#origin_location_latlng_string").val(location.lat+","+location.lon);
+              } else {
+                alert("Sorry, couldn't find that.");
               }
             });
             return false;
@@ -113,19 +112,18 @@
       :javascript
         $("a.geocode_offset").click(function() {
           var address = $("#offset_location_name").val();
-          var geocoder = L.mapbox.geocoder('infovore.he83klmi');
-          geocoder.query(address, function(err, res) {
-            if(err) {
-              alert("Sorry, couldn't find that.");
-            } else {
-              console.log(res);
-              var location = res.results[0][0];
+          $.getJSON('http://open.mapquestapi.com/nominatim/v1/search.php?format=json&limit=5&q=' + address + '&json_callback=?', 'jsonp', function(data) {
+            console.log(data);
+            if(data.length > 0) {
+              var location = data[0]
               // move map to data.lat, data.lon
               window.offset_map.panTo([location.lat, location.lon]);
               // move marker to data.lat, data.lon
               window.offset_marker.setLatLng([location.lat,location.lon]);
               // update field
               $("#offset_location_latlng_string").val(location.lat+","+location.lon);
+            } else {
+              alert("Sorry, couldn't find that.");
             }
           });
           return false;
