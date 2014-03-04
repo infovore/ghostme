@@ -39,7 +39,7 @@ gem 'pg'
 # stuff for Foursquare
 gem 'addressable'
 gem 'rest-client'
-gem 'quimby'
+gem 'quimby', :git => 'git@github.com:groupme/quimby.git'
 
 # pagination
 gem 'kaminari'
