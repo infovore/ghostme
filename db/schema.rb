@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140414112148) do
+ActiveRecord::Schema.define(version: 20140414120203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20140414112148) do
     t.string   "shout"
     t.integer  "timestamp",          limit: 8
     t.string   "venue_id"
-    t.string   "timezone"
     t.string   "venue_name"
     t.boolean  "reposted",                     default: false
     t.datetime "created_at"
@@ -33,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140414112148) do
     t.string   "category_name_list"
     t.string   "mirror_checkin_id"
     t.boolean  "scheduled",                    default: false
+    t.integer  "timezone_offset"
   end
 
   create_table "locations", force: true do |t|
