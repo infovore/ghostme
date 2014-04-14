@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028152932) do
+ActiveRecord::Schema.define(version: 20140414112148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20131028152932) do
     t.string   "access_token"
     t.string   "firstname"
     t.string   "lastname"
-    t.string   "picture_url"
     t.string   "foursquare_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -56,6 +55,8 @@ ActiveRecord::Schema.define(version: 20131028152932) do
     t.integer  "offset_location_id"
     t.string   "secondary_access_token"
     t.string   "secondary_foursquare_id"
+    t.string   "photo_prefix"
+    t.string   "photo_suffix"
   end
 
   add_index "users", ["access_token"], name: "index_users_on_access_token", using: :btree

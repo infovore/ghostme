@@ -50,4 +50,20 @@ class User < ActiveRecord::Base
       "secondary_access_token_needed"
     end
   end
+
+  def photo_url(size_string="small")
+    case size_string
+    when 'tiny'
+      size = "36x36"
+    when 'small'
+      size = "100x100"
+    when 'medium'
+      size = "300x300"
+    when 'large'
+      size = "500x500"
+    when 'original'
+      size = 'original'
+    end
+    photo_prefix + size + photo_suffix
+  end
 end
