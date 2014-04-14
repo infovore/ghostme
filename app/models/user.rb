@@ -27,14 +27,31 @@ class User < ActiveRecord::Base
     !offset_location.nil?
   end
 
-  def all_foursq_checkins
-    foursquare = Foursquare::Base.new(:access_token => access_token)
-    foursquare.users.find('self').all_checkins
+  def all_foursq_checkins(args = {})
+    foursquare = Foursquare2::Client.new(:oauth_token => access_token, :api_version => '20140401')
+
+    checkin_list = []
+    per_page = 250
+    offset = 0
+    continue = true
+
+    while continue
+      next_checkins = foursquare.user_checkins({:limit => per_page, :offset => offset}.merge(args))
+      
+      checkin_list = checkin_list + next_checkins.items
+
+      if next_checkins.items.size < per_page
+        continue = false
+      end
+
+      offset = offset + per_page
+    end
+
+    checkin_list
   end
 
   def all_foursq_checkins_since(timestamp)
-    foursquare = Foursquare::Base.new(:access_token => access_token)
-    foursquare.users.find('self').checkins(:afterTimestamp => timestamp.to_s)
+    all_foursq_checkins(:afterTimestamp => timestamp.to_s)
   end
 
   def next_checkin_after(t)
