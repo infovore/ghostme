@@ -1,7 +1,7 @@
 class VenueMirrorer
   def self.mirror_venue_for_checkin(checkin)
     # build a Foursquare object
-    foursquare = Foursquare::Base.new(:access_token => checkin.user.access_token)
+    foursquare = Foursquare2::Client.new(:oauth_token => checkin.user.access_token, :api_version => '20140401')
 
     # get the relative latlng of this checkin
     # add them to the user's offset_latlng to get the search terms
@@ -9,7 +9,9 @@ class VenueMirrorer
     new_lng = checkin.user.offset_location.lng + checkin.relative_lng
 
     # search for venues near a space in the categories of this checkin
-    venues = foursquare.venues.nearby(:ll => "#{new_lat}, #{new_lng}", :categoryId => checkin.category_id_list)
+    venues_hashie = foursquare.search_venues(:ll => "#{new_lat}, #{new_lng}", :categoryId => checkin.category_id_list)
+
+    venues = venues_hashie.venues
 
     # order them by proximity
     venues = venues.sort_by do |venue|
@@ -20,7 +22,7 @@ class VenueMirrorer
 
     # spit out the first one
     if venues.any?
-      venues.first.json
+      venues.first
     else
       nil
     end
