@@ -5,7 +5,7 @@ class CheckinIngester
     checkin_data = user.all_foursq_checkins
     checkin_data.each do |raw_checkin|
       # that true indicates this is our first, initial setup.
-      Checkin.create_for_user_from_json(user, raw_checkin.json, true)
+      Checkin.create_for_user_from_mashie(user, raw_checkin, true)
     end
   end
 
@@ -18,7 +18,7 @@ class CheckinIngester
 
       checkin_data = user.all_foursq_checkins_since(latest_timestamp)
       checkin_data.each do |raw_checkin|
-        Checkin.create_for_user_from_json(user, raw_checkin.json)
+        Checkin.create_for_user_from_mashie(user, raw_checkin)
       end
     else
       self.ingest_all_checkins_for_user_id(user_id)

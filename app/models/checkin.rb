@@ -51,27 +51,27 @@ class Checkin < ActiveRecord::Base
 
   private
 
-  def self.create_for_user_from_json(user,json,initial=false)
-    unless user.checkins.where(:checkin_id => json['id']).any?
-      if json['venue']
+  def self.create_for_user_from_mashie(user,mashie, initial=false)
+    unless user.checkins.where(:checkin_id => mashie.id).any?
+      if mashie.venue
         # TODO: we need to model Venues, maybe? Certainly extract latlong for
         # venues from the JSON.
-        venue_id = json['venue']['id']
-        venue_name = json['venue']['name']
-        category_id_list = json['venue']['categories'].map {|cat| cat['id']}.join(",")
-        category_name_list = json['venue']['categories'].map {|cat| cat['name']}.join(",")
-        lat = json['venue']['location']['lat']
-        lng = json['venue']['location']['lng']
+        venue_id = mashie.venue.id
+        venue_name = mashie.venue.name
+        category_id_list = mashie.venue.categories.map {|cat| cat.id}.join(",")
+        category_name_list = mashie.venue.categories.map {|cat| cat.name}.join(",")
+        lat = mashie.venue.location.lat
+        lng = mashie.venue.location.lng
       else
         # TODO: what sort of checkins don't have location?
         venue_id, venue_name = nil,nil
         lat, lng = nil,nil
       end
 
-      user.checkins.create(:checkin_id => json['id'],
-                           :timezone => json['timeZone'],
-                           :timestamp => json['createdAt'],
-                           :shout => json['shout'],
+      user.checkins.create(:checkin_id => mashie.id,
+                           :timezone_offset => mashie.timeZoneOffset,
+                           :timestamp => mashie.createdAt,
+                           :shout => mashie.shout,
                            :lat => lat,
                            :lng => lng,
                            :venue_id => venue_id,
@@ -81,4 +81,5 @@ class Checkin < ActiveRecord::Base
                            :reposted => initial)
     end
   end
+
 end
