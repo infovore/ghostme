@@ -3,12 +3,12 @@ class CheckinCreator
     checkin = Checkin.find(id)
     if checkin && !checkin.mirrored?
       user = checkin.user
-      secondary_foursquare = Foursquare2::Client.new(:oauth_token => user.secondary_access_token, :api_version => '20140401'
+      secondary_foursquare = Foursquare2::Client.new(:oauth_token => user.secondary_access_token, :api_version => '20140401')
 
       mirror_venue = VenueMirrorer.mirror_venue_for_checkin(checkin)
 
       if mirror_venue
-        mirrored_checkin = secondary_foursquare.checkins.create("venueId" => mirror_venue['id'], :shout => checkin.shout)
+        mirrored_checkin = secondary_foursquare.add_checkin(:venueId => mirror_venue.id, :shout => checkin.shout)
         if mirrored_checkin
           checkin.mirror_checkin_id = mirrored_checkin.id
           checkin.reposted = true
