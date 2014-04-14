@@ -39,8 +39,8 @@ gem 'pg'
 # stuff for Foursquare
 gem 'addressable'
 gem 'rest-client'
-gem 'typhoeus'
-gem 'quimby', '0.4.5', :path => "vendor/gems/quimby-0.4.5"
+gem 'oauth2'
+gem 'foursquare2'
 
 # pagination
 gem 'kaminari'
