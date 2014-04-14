@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def all_foursq_checkins(args = {})
-    foursquare = Foursquare2::Client.new(:oauth_token => access_token, :api_version => ENV['FOURSQUARE_API_VERSION'])
+    foursquare = GhostClient.foursquare_client(access_token)
 
     checkin_list = []
     per_page = 250

@@ -1,7 +1,7 @@
 class VenueMirrorer
   def self.mirror_venue_for_checkin(checkin)
     # build a Foursquare object
-    foursquare = Foursquare2::Client.new(:oauth_token => checkin.user.access_token, :api_version => ENV['FOURSQUARE_API_VERSION'])
+    foursquare = GhostClient.foursquare_client(checkin.user.access_token)
 
     # get the relative latlng of this checkin
     # add them to the user's offset_latlng to get the search terms

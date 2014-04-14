@@ -2,13 +2,13 @@ class SessionsController < ApplicationController
   def new
     return redirect_to user_path(current_user) if current_user
 
-    client = OAuth2::Client.new(ENV['FOURSQUARE_CLIENT_ID'], ENV['FOURSQUARE_CLIENT_SECRET'], :site => 'https://foursquare.com', :authorize_url => '/oauth2/authorize', :token_url => '/oauth2/access_token')
+    client = GhostClient.oauth_client
 
     @authorize_url = client.auth_code.authorize_url(:redirect_uri => callback_session_url)
   end
 
   def callback
-    client = OAuth2::Client.new(ENV['FOURSQUARE_CLIENT_ID'], ENV['FOURSQUARE_CLIENT_SECRET'], :site => 'https://foursquare.com', :authorize_url => '/oauth2/authorize', :token_url => '/oauth2/access_token')
+    client = GhostClient.oauth_client
 
     code = params[:code]
 
@@ -18,9 +18,9 @@ class SessionsController < ApplicationController
       session[:access_token] = @access_token.token
 
       @user = User.find_or_create_by_access_token(@access_token.token)
-      user_fs = Foursquare2::Client.new(:oauth_token => @access_token.token, :api_version => ENV['FOURSQUARE_API_VERSION'])
+      user_fs = GhostClient.foursquare_client(@access_token.token)
       u = user_fs.user('self')
-      p u
+
       if @user.foursquare_id.blank?
         @user.update_attributes(:firstname => u.firstName,
                                 :lastname => u.lastName,
