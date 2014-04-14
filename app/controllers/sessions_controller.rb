@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       session[:access_token] = @access_token.token
 
       @user = User.find_or_create_by_access_token(@access_token.token)
-      user_fs = Foursquare2::Client.new(:oauth_token => @access_token.token, :api_version => '20140401')
+      user_fs = Foursquare2::Client.new(:oauth_token => @access_token.token, :api_version => ENV['FOURSQUARE_API_VERSION'])
       u = user_fs.user('self')
       p u
       if @user.foursquare_id.blank?
@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
 
       @user.secondary_access_token = @secondary_access_token.token
 
-      secondary_foursquare = Foursquare2::Client.new(:oauth_token => @secondary_access_token.token, :api_version => '20140401')
+      secondary_foursquare = Foursquare2::Client.new(:oauth_token => @secondary_access_token.token, :api_version => ENV['FOURSQUARE_API_VERSION'])
 
       @secondary_user = secondary_foursquare.user("self")
 

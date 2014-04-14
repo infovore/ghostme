@@ -4,7 +4,8 @@ Work in progress.
 
 # TODO
 
-port the damn thing to Skittles, not Quimby
+refactor repeated Foursquare stuff into GhostApp::Foursquare or something
+similar.
 
 ## Long running tasks
 

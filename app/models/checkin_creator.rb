@@ -3,7 +3,7 @@ class CheckinCreator
     checkin = Checkin.find(id)
     if checkin && !checkin.mirrored?
       user = checkin.user
-      secondary_foursquare = Foursquare2::Client.new(:oauth_token => user.secondary_access_token, :api_version => '20140401')
+      secondary_foursquare = Foursquare2::Client.new(:oauth_token => user.secondary_access_token, :api_version => ENV['FOURSQUARE_API_VERSION'])
 
       mirror_venue = VenueMirrorer.mirror_venue_for_checkin(checkin)
 
