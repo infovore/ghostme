@@ -1,6 +1,6 @@
 %h1 Your profile, #{@user.name}
 
-%p= image_tag(@user.picture_url)
+%p= image_tag(@user.photo_url('medium'))
 
 %p
   - if @user.secondary_access_token

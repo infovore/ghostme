@@ -25,7 +25,7 @@
             %li= link_to "Checkins", "/checkins"
           .navbar-right.user-panel
             - if current_user
-              %img{:src => current_user.picture_url}
+              %img{:src => current_user.photo_url}
               Logged in as
               %i= link_to(current_user.name, profile_path)
               = link_to "Log out", logout_session_path
