@@ -3,7 +3,7 @@ class CheckinCreator
     checkin = Checkin.find(id)
     if checkin && !checkin.mirrored?
       user = checkin.user
-      foursquare = GhostClient.foursquare_client(user.secondary_access_token)
+      secondary_foursquare = GhostClient.foursquare_client(user.secondary_access_token)
 
       mirror_venue = VenueMirrorer.mirror_venue_for_checkin(checkin)
 
