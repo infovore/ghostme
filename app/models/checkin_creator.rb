@@ -9,6 +9,7 @@ class CheckinCreator
 
       if mirror_venue
         mirrored_checkin = secondary_foursquare.add_checkin(:venueId => mirror_venue.id, :shout => checkin.shout)
+
         if mirrored_checkin
           checkin.mirror_checkin_id = mirrored_checkin.id
           checkin.reposted = true
@@ -19,7 +20,7 @@ class CheckinCreator
         #raise "No Mirror venue found."
       end
     else
-      #raise "No Checkin matching that ID found"
+      #raise "No unmirrored checkin matching that ID found"
     end
   end
 
