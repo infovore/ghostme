@@ -11,6 +11,7 @@ Ghostme::Application.routes.draw do
     member do
       get 'mirror'
       post 'create_at_mirror'
+      post 'schedule_at_mirror'
     end
   end
 
